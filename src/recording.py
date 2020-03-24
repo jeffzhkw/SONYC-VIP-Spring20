@@ -1,4 +1,4 @@
-class recording:
+class Recording(object):
     '''
     Storing the recording itself
     '''
