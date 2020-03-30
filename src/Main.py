@@ -1,27 +1,29 @@
-from flask import Flask
-from flask import request, render_template
-
+from flask import Flask, request
+from src import store
+from src.recording import Recording
+import src.setting_up as sql
 app = Flask(__name__)
 
+def make_recording(id, name, length):
+    return Recording(id,name, length)
 
-@app.route('/hello') #what url will execute the function
-def helloWorld():
-    return ("Hello world")
-
-
-@app.route('/') 
-
-def index():
-    return render_template("index.html")
-
-"""
 @app.route('/')
-def hello():
-    name = request.args.get("name", "World")
-    return f'Hello, {escape(name)}!'
+def main():
+    connection = sql.get_connection()
+    sql.sql_create_audio_table(connection)
+    sql.close_db(connection)
+    return 'Hello, World!'
 
-"""
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
+@app.route('/audio', methods = ['POST'])
+def upload():
+    if(request.methods == 'POST'):
+        name = request.form['name']
+        length = request.form['length']
+        data = request.form['data']
+        recording = make_recording(name, length, data)
+        connection = sql.get_connection()
+        sql.sql_insert_audio(connection, recording)
+        sql.close_db(connection)
+        return "success" #add HTTP code
 
+app.run()
