@@ -10,7 +10,7 @@ def helloWorld():
 
 
 @app.route('/') 
-@app.route('/<name>')
+
 def index():
     return render_template("index.html")
 
