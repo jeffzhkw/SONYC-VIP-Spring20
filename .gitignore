@@ -1,4 +1,7 @@
 .venv
 venv/
 __pycache__
-.db
+audio.db
+*.sqlite3
+migrations/
+db.sqlite3
