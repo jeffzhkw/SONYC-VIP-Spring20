@@ -17,12 +17,14 @@ def get_connection():
     conn = _sqlite3.connect("audio.db")
     return conn
 
-def create_table(conn):
-    conn.execute(sql_create_audio_table)
+def create_table():
+    connection = get_connection()
+    connection.execute(sql_create_audio_table)
+    connection.close()
 
-def insert_into_db(conn, recording):
-    conn.execute(sql_insert_audio, recording)
-    conn.commit()
-
-def close_db(conn):
-    return conn.close()
+# @Todo: Add condition to check if table exist
+def insert_into_db(recording):
+    connection = get_connection()
+    connection.execute(sql_insert_audio, recording)
+    connection.commit()
+    connection.close()

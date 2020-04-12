@@ -1,5 +1,4 @@
 from flask import Flask, request
-from src import store
 from src.recording import Recording
 import src.setting_up as sql
 app = Flask(__name__)
@@ -7,23 +6,24 @@ app = Flask(__name__)
 def make_recording(id, name, length):
     return Recording(id,name, length)
 
-@app.route('/')
+@app.route('/', methods = ['GET'])
 def main():
-    connection = sql.get_connection()
-    sql.sql_create_audio_table(connection)
-    sql.close_db(connection)
-    return 'Hello, World!'
+    return {"test": "Hello"};
 
-@app.route('/audio', methods = ['POST'])
+@app.route('/hello', methods = ['GET'])
+def test():
+    return {"test": "Hello"};
+
+@app.route('/audio', methods = ['GET','POST'])
 def upload():
-    if(request.methods == 'POST'):
-        name = request.form['name']
-        length = request.form['length']
-        data = request.form['data']
-        recording = make_recording(name, length, data)
-        connection = sql.get_connection()
-        sql.sql_insert_audio(connection, recording)
-        sql.close_db(connection)
-        return "success" #add HTTP code
+    if request.method == 'POST':
+        # name = request.form['name']
+        # length = request.form['length']
+        # data = request.form['data']
+        # recording = make_recording(name, length, data)
+        # sql.insert_into_db(recording)
+        return {"test": "success" }#add HTTP code
+    elif request.method == 'GET':
+        return "Hello world";
 
 app.run()

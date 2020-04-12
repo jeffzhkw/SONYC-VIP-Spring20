@@ -15,6 +15,7 @@ class App extends React.Component {
     };
   }
 
+
   start = () => {
     if (this.state.isBlocked) {
       console.log('Permission Denied');
@@ -33,6 +34,21 @@ class App extends React.Component {
       .getMp3()
       .then(([buffer, blob]) => {
         const blobURL = URL.createObjectURL(blob)
+        let wavFile = new FormData();
+        wavFile.append('name', 'test.wav');
+        wavFile.append('data', blob);
+        //@ToDo: Change this to proper domain name
+        const API_URL = "http://127.0.0.1:5000/audio";
+        fetch(API_URL, {
+          method: 'POST',
+            // headers: {
+            //   'Accept': 'application/json',
+            //   'Content-Type': 'application/json',
+            // },
+            body: wavFile
+        }).then(response => {
+          console.log(response.json())
+        })
         this.setState({ blobURL, isRecording: false });
       }).catch((e) => console.log(e));
   };
