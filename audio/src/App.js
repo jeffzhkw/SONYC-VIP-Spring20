@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
+import ReactDOM from 'react-dom';
 import MicRecorder from 'mic-recorder-to-mp3';
-
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
+
+
 
 
 class App extends React.Component {
@@ -13,6 +15,15 @@ class App extends React.Component {
       blobURL: '',
       isBlocked: false,
     };
+  }
+  addStartButton = () =>{
+    const startButton = <div id = "start" className = "start" onClick = {this.start}></div>;
+    ReactDOM.render(startButton, document.getElementById('recordButton'))
+  }
+
+  addStopButton = () =>{
+    const stopButton = <div id = "stop" className = "stop" onClick = {this.stop}></div>;
+    ReactDOM.render(stopButton, document.getElementById('recordButton'))
   }
 
 
@@ -26,6 +37,10 @@ class App extends React.Component {
           this.setState({ isRecording: true });
         }).catch((e) => console.error(e));
     }
+
+    this.addStopButton();
+
+  
   };
 
   stop = () => {
@@ -51,6 +66,9 @@ class App extends React.Component {
         })
         this.setState({ blobURL, isRecording: false });
       }).catch((e) => console.log(e));
+      
+      this.addStartButton();
+
   };
 
   componentDidMount() {
@@ -64,17 +82,39 @@ class App extends React.Component {
         this.setState({ isBlocked: true })
       },
     );
+  
   }
 
   render(){
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
+        <div className = "navBar">
+
+          <div className = "loginButton">
+            Login
+          </div>
+        </div>
+        
+          <div className = "record-wrapper">
+            <div id = "recordButton">
+              <div id = "start" className = "start" onClick = {this.start}></div>
+            </div>
+          </div>
+        
+        <header className="record-window">
+          
+          <audio src={this.state.blobURL} controls="controls" />
           <button onClick={this.start} disabled={this.state.isRecording}>Record</button>
           <button onClick={this.stop} disabled={!this.state.isRecording}>Stop</button>
-          <audio src={this.state.blobURL} controls="controls" />
         </header>
+
+        <div className = "loud-indicator">
+
+        </div>
+        
       </div>
+
+      
     );
   }
 }

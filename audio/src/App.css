@@ -1,21 +1,116 @@
-.App {
-  text-align: center;
+*{
+  box-sizing: border-box;
+}
+.app{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.shiftR-2{
+  grid-column-start: 3;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navBar{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 10vh;
+  width: 100vw;
+  background-color: #21262C;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.loginButton{
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  height: 58px;
+  color: #83878A;
+  font-size: 20pt;
+  border: 3px dashed #83878A;
+  border-radius: 5pt;
+  transition-duration: 0.3s;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.loginButton:hover{
+  display: flex;
+  transform: scale(0.98);
+  border-radius: 10px;
+  border: 2px solid white;
+  color: white;
+  transition-duration: 0.3s;
+}
+
+.record-wrapper{
+  padding: 3vmin;
+}
+
+#recordButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 80vw;
+  width: 80vw;
+  border: solid 1px #707070 ;
+  
+}
+
+.start{
+  background-color: #FF8888;
+  height: 25vw;
+  width: 25vw;
+  border-radius: 50%;
+  border: solid 1px #707070;
+  transition: 0.2s;
+}
+
+.start:hover{
+  height: 23vw;
+  width: 23vw;
+  border-radius: 50%;
+  transition: 0.2s;
+  
+}
+.startNon{
+  height: 0;
+  width:0;
+  transition: 0.5s;
+  border: 0px;
+}
+
+.stop{
+  background-color: #FF8888;
+  height: 20vw;
+  width: 20vw;
+  border: solid 1px #707070;
+  border-radius: 0%;
+  transition: 0.2s;
+}
+
+.stop:hover{
+  height: 19vw;
+  width: 19vw;
+  transition: 0.2s;
+}
+
+.stopNon{
+  height: 0;
+  width:0;
+  transition: 0.5s;
+  border: 0px;
+}
+
+.record-window {
+  background-color: #F9F4E7;
+  width: 100vw;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,15 +119,9 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
+/* desktop version */
+@media screen and (min-width: 600px){
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
 }
