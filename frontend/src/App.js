@@ -2,11 +2,8 @@ import React from 'react';
 import './App.css';
 import ReactDOM from 'react-dom';
 import MicRecorder from 'mic-recorder-to-mp3';
+
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-
-
-
-
 class App extends React.Component {
   constructor(props){
     super(props);

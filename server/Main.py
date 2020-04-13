@@ -1,5 +1,4 @@
 from flask import Flask, request
-from src import store
 from src.recording import Recording
 import src.setting_up as sql
 app = Flask(__name__)
