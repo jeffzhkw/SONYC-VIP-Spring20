@@ -1,6 +1,6 @@
 from flask import Flask, request
-from src.recording import Recording
-import src.setting_up as sql
+from server.recording import Recording
+import server.setting_up as sql
 app = Flask(__name__)
 
 def make_recording(id, name, length):
@@ -13,7 +13,7 @@ def main():
     sql.close_db(connection)
     return 'Hello, World!'
 
-@app.route('/audio', methods = ['POST'])
+@app.route('/frontend', methods = ['POST'])
 def upload():
     if(request.methods == 'POST'):
         name = request.form['name']

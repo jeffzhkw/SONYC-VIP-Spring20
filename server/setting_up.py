@@ -14,7 +14,7 @@ sql_insert_audio = '''
 '''
 
 def get_connection():
-    conn = _sqlite3.connect("audio.db")
+    conn = _sqlite3.connect("frontend.db")
     return conn
 
 def create_table():
