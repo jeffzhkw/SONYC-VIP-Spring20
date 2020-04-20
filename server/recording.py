@@ -2,7 +2,9 @@ class Recording(object):
     '''
     Storing the recording itself
     '''
-    def __init__(self, name, length, data):
+    def __init__(self, name, data):
         self.name = name
-        self.length = length
         self.data = data
+
+    def __str__(self):
+        return "Audio: " + self.name + " Data: " + self.data
