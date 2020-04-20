@@ -1,24 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import MicRecorder from "mic-recorder-to-mp3";
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const HomePage = () => {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isRecording: false,
-//       blobURL: "",
-//       isBlocked: false,
-//     };
-//   }
-
   const [isRecording, setRecording] = useState(false);
   const [blobURL, setblobURL] = useState("");
   const [isBlocked, setBlocked] = useState(false);
-
+  const API_URL = "http://127.0.0.1:5000/upload";
 
   
   const addStartButton = () => {
@@ -58,7 +49,6 @@ const HomePage = () => {
         wavFile.append("name", "test.wav");
         wavFile.append("data", buffer);
         //@ToDo: Change this to proper domain name
-        const API_URL = "http://127.0.0.1:5000/upload";
         fetch(API_URL, {
           method: "POST",
           body: wavFile,
@@ -87,52 +77,36 @@ const HomePage = () => {
     );
   });
 
-//   componentDidMount() {
-//     navigator.getUserMedia(
-//       { audio: true },
-//       () => {
-//         console.log("Permission Granted");
-//         this.setState({ isBlocked: false });
-//       },
-//       () => {
-//         console.log("Permission Denied");
-//         this.setState({ isBlocked: true });
-//       }
-//     );
-//   }
+  const history = useHistory();
 
-//   render() {
     return (
-      <div className="app">
+        <div className="app">
         <Router>
-          <div className="navBar">
-            <Link to="/login">
-              <button className="loginButton">Login</button>
-            </Link>
-          </div>
-
-
-          <div className="record-wrapper">
-            <div id="recordButton">
-              <div id="start" className="start" onClick={start}></div>
+            <div className="navBar">
+                <button className="loginButton" onClick = {() => history.push('/login')}> Login </button>
             </div>
-          </div>
 
-          <header className="record-window">
+
+            <div className="record-wrapper">
+            <div id="recordButton">
+                <div id="start" className="start" onClick={start}></div>
+            </div>
+            </div>
+
+            <header className="record-window">
             <audio src={blobURL} controls="controls" />
             <button onClick={start} disabled={isRecording}>
-              Record
+                Record
             </button>
             <button onClick={stop} disabled={!isRecording}>
-              Stop
+                Stop
             </button>
-          </header>
+            </header>
 
-          <div className="loud-indicator"></div>
+            <div className="loud-indicator"></div>
         </Router>
-      </div>
+        </div>
     );
   }
-// }
 
 export default HomePage;
