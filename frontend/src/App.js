@@ -1,113 +1,95 @@
-import React from 'react';
-import './App.css';
-import ReactDOM from 'react-dom';
-import MicRecorder from 'mic-recorder-to-mp3';
+import React from "react";
+import "./App.css";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import MicRecorder from "mic-recorder-to-mp3";
+import Login from './LoginPage';
+import HomePage from './HomePage';
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       isRecording: false,
-      blobURL: '',
+      blobURL: "",
       isBlocked: false,
     };
   }
-  addStartButton = () =>{
-    const startButton = <div id = "start" className = "start" onClick = {this.start}></div>;
-    ReactDOM.render(startButton, document.getElementById('recordButton'))
-  }
+  addStartButton = () => {
+    const startButton = (
+      <div id="start" className="start" onClick={this.start}></div>
+    );
+    ReactDOM.render(startButton, document.getElementById("recordButton"));
+  };
 
-  addStopButton = () =>{
-    const stopButton = <div id = "stop" className = "stop" onClick = {this.stop}></div>;
-    ReactDOM.render(stopButton, document.getElementById('recordButton'))
-  }
-
-
+  addStopButton = () => {
+    const stopButton = (
+      <div id="stop" className="stop" onClick={this.stop}></div>
+    );
+    ReactDOM.render(stopButton, document.getElementById("recordButton"));
+  };
   start = () => {
     if (this.state.isBlocked) {
-      console.log('Permission Denied');
+      console.log("Permission Denied");
     } else {
-      Mp3Recorder
-        .start()
+      Mp3Recorder.start()
         .then(() => {
           this.setState({ isRecording: true });
-        }).catch((e) => console.error(e));
+        })
+        .catch((e) => console.error(e));
     }
 
     this.addStopButton();
-
-  
   };
 
   stop = () => {
-    Mp3Recorder
-      .stop()
+    Mp3Recorder.stop()
       .getMp3()
       .then(([buffer, blob]) => {
-        const blobURL = URL.createObjectURL(blob)
+        const blobURL = URL.createObjectURL(blob);
         let wavFile = new FormData();
-        wavFile.append('name', 'test.wav');
-        wavFile.append('data', buffer);
+        wavFile.append("name", "test.wav");
+        wavFile.append("data", buffer);
         //@ToDo: Change this to proper domain name
         const API_URL = "http://127.0.0.1:5000/upload";
         fetch(API_URL, {
-          method: 'POST',
-            body: wavFile
-        }).then(response => {
-          console.log(response.json())
-        })
+          method: "POST",
+          body: wavFile,
+        }).then((response) => {
+          console.log(response.json());
+        });
         this.setState({ blobURL, isRecording: false });
-      }).catch((e) => console.log(e));
-      
-      this.addStartButton();
+      })
+      .catch((e) => console.log(e));
 
+    this.addStartButton();
   };
 
   componentDidMount() {
-    navigator.getUserMedia({ audio: true },
+    navigator.getUserMedia(
+      { audio: true },
       () => {
-        console.log('Permission Granted');
+        console.log("Permission Granted");
         this.setState({ isBlocked: false });
       },
       () => {
-        console.log('Permission Denied');
-        this.setState({ isBlocked: true })
-      },
+        console.log("Permission Denied");
+        this.setState({ isBlocked: true });
+      }
     );
-  
   }
 
-  render(){
+  render() {
     return (
       <div className="app">
-        <div className = "navBar">
-
-          <div className = "loginButton">
-            Login
-          </div>
-        </div>
-        
-          <div className = "record-wrapper">
-            <div id = "recordButton">
-              <div id = "start" className = "start" onClick = {this.start}></div>
-            </div>
-          </div>
-        
-        <header className="record-window">
-          
-          <audio src={this.state.blobURL} controls="controls" />
-          <button onClick={this.start} disabled={this.state.isRecording}>Record</button>
-          <button onClick={this.stop} disabled={!this.state.isRecording}>Stop</button>
-        </header>
-
-        <div className = "loud-indicator">
-
-        </div>
-        
+        <Router>
+         <Switch>
+           <Route path = "/" component = {HomePage} />
+           <Route path = "/login" component = {Login} />
+         </Switch>
+        </Router>
       </div>
-
-      
     );
   }
 }
