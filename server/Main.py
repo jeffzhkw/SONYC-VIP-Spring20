@@ -1,6 +1,7 @@
 from flask import Flask, request
 from recording import Recording
 import setting_up as sql
+import authentication as auth
 
 app = Flask(__name__)
 
@@ -38,5 +39,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
+        if auth.authenticate("password"):
+            print('Hello world')
+
 app.run()
