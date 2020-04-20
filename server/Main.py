@@ -1,28 +1,35 @@
 from flask import Flask, request
-from server.recording import Recording
-import server.setting_up as sql
+from recording import Recording
+import setting_up as sql
+
 app = Flask(__name__)
 
-def make_recording(id, name, length):
-    return Recording(id,name, length)
+def make_recording(name, data):
+    return Recording(name, data)
 
 @app.route('/')
 def main():
-    connection = sql.get_connection()
-    sql.sql_create_audio_table(connection)
-    sql.close_db(connection)
     return 'Hello, World!'
 
-@app.route('/frontend', methods = ['POST'])
+# @ToDo: Handling errors
+@app.route('/upload', methods = ['POST'])
 def upload():
-    if(request.methods == 'POST'):
+    if request.method == 'POST':
+        print(request.form)
         name = request.form['name']
-        length = request.form['length']
+        print(name)
         data = request.form['data']
-        recording = make_recording(name, length, data)
-        connection = sql.get_connection()
-        sql.sql_insert_audio(connection, recording)
-        sql.close_db(connection)
-        return "success" #add HTTP code
+        print(data)
+        recording = make_recording(name, data)
+        sql.insert_into_db(recording)
+        return {"status": "200"}
+
+# @ToDo Handling finding by name
+@app.route('/retrieve', methods = ['GET'])
+def retrieve():
+    if request.method == 'GET':
+        name = request.form['name']
+        sql.getting_audio(name)
+        return ""
 
 app.run()

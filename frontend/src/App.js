@@ -48,15 +48,11 @@ class App extends React.Component {
         const blobURL = URL.createObjectURL(blob)
         let wavFile = new FormData();
         wavFile.append('name', 'test.wav');
-        wavFile.append('data', blob);
+        wavFile.append('data', buffer);
         //@ToDo: Change this to proper domain name
-        const API_URL = "http://127.0.0.1:5000/audio";
+        const API_URL = "http://127.0.0.1:5000/upload";
         fetch(API_URL, {
           method: 'POST',
-            // headers: {
-            //   'Accept': 'application/json',
-            //   'Content-Type': 'application/json',
-            // },
             body: wavFile
         }).then(response => {
           console.log(response.json())
