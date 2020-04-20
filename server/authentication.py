@@ -9,6 +9,6 @@ def authenticate(user):
         user.password = hash_password
         # sql.insert_into_db(hash) -> inserting into db
         logging.info("New user is created")
-        return "User is created"
+        return "New User"
     else:
         return sha256_crypt.verify(user.password,dbpassword)

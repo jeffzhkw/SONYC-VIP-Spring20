@@ -2,7 +2,7 @@ from flask import Flask, request
 from recording import Recording
 import setting_up as sql
 import authentication as auth
-
+import user
 app = Flask(__name__)
 
 def make_recording(name, data):
@@ -39,7 +39,15 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if auth.authenticate("password"):
-            print('Hello world')
+        user = user.make_user(username, password)
+        res = auth.authenticate(user)
+        if res == "New User":
+            return "success"
+        elif res == True:
+            return "success" # -> Adding more feature to get audio
+        else:
+            return "failure"
+
+
 
 app.run()
