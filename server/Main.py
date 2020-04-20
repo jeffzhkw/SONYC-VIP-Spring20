@@ -32,4 +32,11 @@ def retrieve():
         sql.getting_audio(name)
         return ""
 
+# @ToDo Handling finding by name
+@app.route('/login', methods = ['POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
 app.run()

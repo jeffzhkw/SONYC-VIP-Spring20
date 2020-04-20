@@ -1,15 +1,27 @@
 import _sqlite3
 
+sql_create_user_table = '''
+    CREATE TABLE IF NOT EXISTS USER(
+        USERID INTEGER PRIMARY KEY AUTOINCREMENT, 
+        USERNAME TEXT NOT NULL,
+        PASSWORD TEXT NOT NULL
+    )
+'''
 sql_create_audio_table = '''
     CREATE TABLE IF NOT EXISTS RECORDING (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     NAME TEXT NOT NULL, 
-    DATA TEXT NOT NULL)
+    DATA TEXT NOT NULL,
+    FOREIGN KEY(AUTHOR) REFERENCES USER(USERID))
+'''
+
+sql_insert_user = '''
+    INSERT INTO USER(USERNAME, PASSWORD) VALUES (?,?)
 '''
 
 sql_insert_audio = '''
-    INSERT INTO RECORDING(NAME, DATA)
-    VALUES (?, ?) 
+    INSERT INTO RECORDING(NAME, DATA, AUTHOR)
+    VALUES (?, ?, ?) 
 '''
 
 sql_select_all = '''
