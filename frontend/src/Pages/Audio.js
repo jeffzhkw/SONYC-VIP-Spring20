@@ -6,7 +6,7 @@ import MicRecorder from "mic-recorder-to-mp3";
 import { auth, db } from '../service/firebase';
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-const HomePage = () => {
+const Audio = () => {
   const [isRecording, setRecording] = useState(false);
   const [blobURL, setblobURL] = useState("");
   const [isBlocked, setBlocked] = useState(false);
@@ -14,20 +14,23 @@ const HomePage = () => {
   const [Error, setError] = useState('')
   //may convert buffer to a file
   const [buffer, setBuffer] = useState([])
+  const [name, setName] = useState('')
+  const [id, setBlolbId] = useState("")
 
   const onSubmit = async(event) => {
     event.preventDefault();
+    let uid = user.uid
     try {
-      await db.ref('audios').push({
-        uid: user,
-        timestamp: Date.now(),
-        url : blobURL,  
-        audio : buffer
+      await db.ref('users/' + uid + "/" + id).push({
+          name : name,
+          timestamp: Date.now()
+      })
+      await db.ref('audios/' + id).push({
+        data : buffer
       })
     } catch(error) {
       setError(error.message)
       console.log(Error);
-      
     }
   }
   
@@ -64,6 +67,8 @@ const HomePage = () => {
       .getMp3()
       .then(([buffer, blob]) => {
         const blobURL = URL.createObjectURL(blob);
+        const id = blobURL.split('http://localhost:3000/')[1]
+        setBlolbId(id)
         setBuffer(buffer)
         setblobURL(blobURL)
         setRecording(false)
@@ -112,4 +117,4 @@ const HomePage = () => {
     );
   }
 
-export default HomePage;
+export default Audio;
