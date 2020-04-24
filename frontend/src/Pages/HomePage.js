@@ -1,16 +1,35 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "../App.css";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import MicRecorder from "mic-recorder-to-mp3";
+import { auth, db } from '../service/firebase';
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const HomePage = () => {
   const [isRecording, setRecording] = useState(false);
   const [blobURL, setblobURL] = useState("");
   const [isBlocked, setBlocked] = useState(false);
-  const API_URL = "http://127.0.0.1:5000/upload";
+  const [user, setUser] = useState(auth().currentUser)
+  const [Error, setError] = useState('')
+  //may convert buffer to a file
+  const [buffer, setBuffer] = useState([])
 
+  const onSubmit = async(event) => {
+    event.preventDefault();
+    try {
+      await db.ref('audios').push({
+        uid: user,
+        timestamp: Date.now(),
+        url : blobURL,  
+        audio : buffer
+      })
+    } catch(error) {
+      setError(error.message)
+      console.log(Error);
+      
+    }
+  }
   
   const addStartButton = () => {
     const startButton = (
@@ -45,21 +64,11 @@ const HomePage = () => {
       .getMp3()
       .then(([buffer, blob]) => {
         const blobURL = URL.createObjectURL(blob);
-        let wavFile = new FormData();
-        wavFile.append("name", "test.wav");
-        wavFile.append("data", buffer);
-        //@ToDo: Change this to proper domain name
-        fetch(API_URL, {
-          method: "POST",
-          body: wavFile,
-        }).then((response) => {
-          console.log(response.json());
-        });
+        setBuffer(buffer)
         setblobURL(blobURL)
         setRecording(false)
       })
       .catch((e) => console.log(e));
-
     addStartButton();
   };
 
@@ -81,12 +90,6 @@ const HomePage = () => {
 
     return (
         <div className="app">
-        <Router>
-            <div className="navBar">
-                <button className="loginButton" onClick = {() => history.push('/login')}> Login </button>
-            </div>
-
-
             <div className="record-wrapper">
             <div id="recordButton">
                 <div id="start" className="start" onClick={start}></div>
@@ -101,10 +104,12 @@ const HomePage = () => {
             <button onClick={stop} disabled={!isRecording}>
                 Stop
             </button>
+            <button onClick={onSubmit}>
+                Submit
+            </button>
             </header>
 
             <div className="loud-indicator"></div>
-        </Router>
         </div>
     );
   }
