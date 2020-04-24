@@ -86,8 +86,6 @@ const HomePage = () => {
     );
   });
 
-  const history = useHistory();
-
     return (
         <div className="app">
             <div className="record-wrapper">

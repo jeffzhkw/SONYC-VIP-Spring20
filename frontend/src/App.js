@@ -1,8 +1,9 @@
 import React, { Component, useState } from "react";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect} from "react-router-dom";
 import Login from './Pages/LoginPage';
-import HomePage from './Pages/HomePage';
-import SignUp from './Pages/SignUp'
+import Audio from './Pages/Audio';
+import SignUp from './Pages/SignUp';
+import DashBoard from './Pages/DashBoard'
 import {auth} from './service/firebase';
 const App = () => {
     const [authenticated, setAuthenticated] = useState(false)
@@ -17,7 +18,8 @@ const App = () => {
       <div className="app">
         <Router>
          <Switch>
-           <Route exact path = "/" component = {HomePage} />
+           <Route exact path = "/dashboard" component = {DashBoard} />
+           <Route exact path = "/" component = {Audio} />
            <Route path = "/signup" authentication = {authenticated} component = {SignUp} />
            <Route path = "/login" authentication = {authenticated} component = {Login} />
            {/* add private part */}
