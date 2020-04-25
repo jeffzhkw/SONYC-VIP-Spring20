@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import MicRecorder from "mic-recorder-to-mp3";
 import { auth, db } from '../service/firebase';
 
@@ -58,7 +57,6 @@ const Audio = () => {
         })
         .catch((e) => console.error(e));
     }
-
     addStopButton();
   };
 
@@ -69,6 +67,7 @@ const Audio = () => {
         const blobURL = URL.createObjectURL(blob);
         const id = blobURL.split('http://localhost:3000/')[1]
         setBlolbId(id)
+        //buffer here works but not blob
         setBuffer(buffer)
         setblobURL(blobURL)
         setRecording(false)
