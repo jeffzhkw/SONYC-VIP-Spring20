@@ -3,6 +3,8 @@ import "./App.css";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import MicRecorder from "mic-recorder-to-mp3";
+import WaveSurfer from "wavesurfer.js";
+import MicrophonePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js';
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const HomePage = () => {
@@ -38,6 +40,7 @@ const HomePage = () => {
     }
 
     addStopButton();
+    microphone.start();
   };
 
   const stop = () => {
@@ -79,6 +82,28 @@ const HomePage = () => {
 
   const history = useHistory();
 
+
+  var wavesurfer = WaveSurfer.create({
+    container     : 'waveform',
+    waveColor     : 'black',
+    interact      : false,
+    cursorWidth   : 0,
+    plugins: [
+      MicrophonePlugin.create()
+    ]
+  });
+  
+  wavesurfer.microphone.on('deviceReady', function(stream) {
+      console.log('Device ready!', stream);
+  });
+  wavesurfer.microphone.on('deviceError', function(code) {
+      console.warn('Device error: ' + code);
+  });
+
+  let microphone = wavesurfer.microphone;
+  
+  
+
     return (
         <div className="app">
         <Router>
@@ -103,7 +128,9 @@ const HomePage = () => {
             </button>
             </header>
 
-            <div className="loud-indicator"></div>
+            <div className="loud-indicator">
+              <div id="waveform"></div>
+            </div>
         </Router>
         </div>
     );

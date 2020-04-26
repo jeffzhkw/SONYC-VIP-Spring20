@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
+import "./LoginPage.css";
 import ReactDOM from 'react-dom';
 
 const Login = () => {
@@ -30,27 +31,37 @@ const Login = () => {
         //     console.log(response.json());
         //   });
     }
-
+    
     return(
         <div>
+        <div className="navBar">
+
+        </div>
+
+        <div className = "loginElem">
             <form onSubmit={handleSubmit}>
-            <div>
+            
             <label>
-                Username:
+                <span>Username:</span>
                 <input type="text" onChange={handleUser} />
             </label>
-            </div>
-            <div>
+
             <label>
-                Password:
+                <span>Password:</span>
                 <input type="text" onChange={handlePassword} />
             </label>
-            </div>
-            <div>
-                <input type="submit" value="Submit" />
-            </div>
-        </form>
+            
+            
+            <input type="submit" value="Login" />
+            
+            </form>
+
         </div>
+
+        </div>
+        
+        
+        
     )
 }
 
