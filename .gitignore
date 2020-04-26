@@ -1,8 +1,1 @@
-.venv
-venv/
-__pycache__
-audio.db
-*.sqlite3
-migrations/
-db.sqlite3
-.vscode
+.DS_Store

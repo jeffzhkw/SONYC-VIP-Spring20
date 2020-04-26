@@ -1,16 +1,37 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "../App.css";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 import MicRecorder from "mic-recorder-to-mp3";
+import { auth, db } from '../service/firebase';
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
-const HomePage = () => {
+const Audio = () => {
   const [isRecording, setRecording] = useState(false);
   const [blobURL, setblobURL] = useState("");
   const [isBlocked, setBlocked] = useState(false);
-  const API_URL = "http://127.0.0.1:5000/upload";
+  const [user, setUser] = useState(auth().currentUser)
+  const [Error, setError] = useState('')
+  //may convert buffer to a file
+  const [buffer, setBuffer] = useState([])
+  const [name, setName] = useState('')
+  const [id, setBlolbId] = useState("")
 
+  const onSubmit = async(event) => {
+    event.preventDefault();
+    let uid = user.uid
+    try {
+      await db.ref('users/' + uid + "/" + id).push({
+          name : name,
+          timestamp: Date.now()
+      })
+      await db.ref('audios/' + id).push({
+        data : buffer
+      })
+    } catch(error) {
+      setError(error.message)
+      console.log(Error);
+    }
+  }
   
   const addStartButton = () => {
     const startButton = (
@@ -36,7 +57,6 @@ const HomePage = () => {
         })
         .catch((e) => console.error(e));
     }
-
     addStopButton();
   };
 
@@ -45,21 +65,14 @@ const HomePage = () => {
       .getMp3()
       .then(([buffer, blob]) => {
         const blobURL = URL.createObjectURL(blob);
-        let wavFile = new FormData();
-        wavFile.append("name", "test.wav");
-        wavFile.append("data", buffer);
-        //@ToDo: Change this to proper domain name
-        fetch(API_URL, {
-          method: "POST",
-          body: wavFile,
-        }).then((response) => {
-          console.log(response.json());
-        });
+        const id = blobURL.split('http://localhost:3000/')[1]
+        setBlolbId(id)
+        //buffer here works but not blob
+        setBuffer(buffer)
         setblobURL(blobURL)
         setRecording(false)
       })
       .catch((e) => console.log(e));
-
     addStartButton();
   };
 
@@ -77,36 +90,27 @@ const HomePage = () => {
     );
   });
 
-  const history = useHistory();
-
     return (
         <div className="app">
-        <Router>
-            <div className="navBar">
-                <button className="loginButton" onClick = {() => history.push('/login')}> Login </button>
-            </div>
-
-
             <div className="record-wrapper">
-            <div id="recordButton">
+              <div id="recordButton">
                 <div id="start" className="start" onClick={start}></div>
+              </div>
             </div>
-            </div>
-
             <header className="record-window">
-            <audio src={blobURL} controls="controls" />
-            <button onClick={start} disabled={isRecording}>
-                Record
-            </button>
-            <button onClick={stop} disabled={!isRecording}>
-                Stop
-            </button>
+              <audio src={blobURL} controls="controls" />
+              <button onClick={start} disabled={isRecording}>
+                  Record
+              </button>
+              <button onClick={stop} disabled={!isRecording}>
+                  Stop
+              </button>
+              <button onClick={onSubmit}>
+                  Submit
+              </button>
             </header>
-
-            <div className="loud-indicator"></div>
-        </Router>
         </div>
     );
   }
 
-export default HomePage;
+export default Audio;
