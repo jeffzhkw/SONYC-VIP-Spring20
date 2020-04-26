@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../service/firebase";
-import ReactPlayer from 'react-player'
-import {Howl, Howler} from 'howler';
 
 const DashBoard = () => {
     const[audios, setAudio] = useState([])
@@ -21,6 +19,8 @@ const DashBoard = () => {
                         let meta = snapshots.val()
                         meta.uid = key
                         db.ref(`audios/${key}`).on("value", snapshots => {
+                            console.log(key)
+                            console.log(snapshots)
                             let uniqueKey = Object.keys(snapshots.val())[0] //work around
                             db.ref(`audios/${key}/${uniqueKey}`).on("value", snapshots => {
                                 let fullData = {...meta, ...snapshots.val()}
@@ -69,13 +69,13 @@ const Audio = (props) => {
             setStop(false)
         }
         setStart(true)
-        const blobURL = URL.createObjectURL(data)
-        var sound = new Howl({
-            src: [blobURL],
-            format: ['mp3'],
-            ext: ['mp3']
-          });
-        sound.play();
+        // const blobURL = URL.createObjectURL(data)
+        // var sound = new Howl({
+        //     src: [blobURL],
+        //     format: ['mp3'],
+        //     ext: ['mp3']
+        //   });
+        // sound.play();
     }
 
     const onClickStop = (event) => {
@@ -90,9 +90,10 @@ const Audio = (props) => {
     return(
         <div>
             <div name = "title"> {name} </div>
+            {/* place holder for now */}
             <audio src=  {`${newUrl}`}controls="controls" type = "audio/mp3"/>
-            <button onClick = {onClickStart}> Play </button>
-            <button onClick = {onClickStop}> Stop </button>
+            {/* <button onClick = {onClickStart}> Play </button>
+            <button onClick = {onClickStop}> Stop </button> */}
         </div>
     )
 }

@@ -93,25 +93,22 @@ const Audio = () => {
     return (
         <div className="app">
             <div className="record-wrapper">
-            <div id="recordButton">
+              <div id="recordButton">
                 <div id="start" className="start" onClick={start}></div>
+              </div>
             </div>
-            </div>
-
             <header className="record-window">
-            <audio src={blobURL} controls="controls" />
-            <button onClick={start} disabled={isRecording}>
-                Record
-            </button>
-            <button onClick={stop} disabled={!isRecording}>
-                Stop
-            </button>
-            <button onClick={onSubmit}>
-                Submit
-            </button>
+              <audio src={blobURL} controls="controls" />
+              <button onClick={start} disabled={isRecording}>
+                  Record
+              </button>
+              <button onClick={stop} disabled={!isRecording}>
+                  Stop
+              </button>
+              <button onClick={onSubmit}>
+                  Submit
+              </button>
             </header>
-
-            <div className="loud-indicator"></div>
         </div>
     );
   }
