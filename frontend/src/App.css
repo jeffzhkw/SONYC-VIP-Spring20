@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *{
   box-sizing: border-box;
 }
@@ -6,6 +7,8 @@ body{
   padding: 0pt;
   background-color: #F9F4E7;
 }
+=======
+>>>>>>> 61a3a0e308542e2a204296c2613cc7046da03aea
 .app{
   display:flex;
   flex-direction: column;
@@ -17,40 +20,6 @@ body{
 .shiftR-2{
   grid-column-start: 3;
 
-}
-
-.navBar{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 10vh;
-  width: 100vw;
-  background-color: #21262C;
-
-}
-
-.loginButton{
-  display: flex;
-  flex-direction: column;
-  width: 100px;
-  height: 58px;
-  color: #83878A;
-  font-size: 20pt;
-  border: 3px dashed #83878A;
-  border-radius: 5pt;
-  transition-duration: 0.3s;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-
-.loginButton:hover{
-  display: flex;
-  transform: scale(0.98);
-  border-radius: 10px;
-  border: 2px solid white;
-  color: white;
-  transition-duration: 0.3s;
 }
 
 .record-wrapper{
@@ -114,9 +83,9 @@ body{
 .record-window {
   background-color: #F9F4E7;
   width: 100vw;
-
+  height: 10vw;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
