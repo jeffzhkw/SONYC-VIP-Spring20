@@ -41,13 +41,17 @@ const DashBoard = () => {
     return(
         <div>
             <button type = "button" onClick = {readFromDB}> Get data </button>
-            <ul>
+            <table>
+                <tr>
+                    <th> Audio </th>
+                    <th> Name </th>
+                </tr>
                 {audios.map((audio) => 
-                    (<Audio key = {audio.uid} name = {audio.name} 
+                        (<Audio key = {audio.uid} name = {audio.name} 
                             blobURL = {audio.uid} data = {audio.data}
-                    />)
-                )}
-            </ul>
+                        />)
+                    )}
+            </table>
         </div>
     )
 
@@ -69,13 +73,6 @@ const Audio = (props) => {
             setStop(false)
         }
         setStart(true)
-        // const blobURL = URL.createObjectURL(data)
-        // var sound = new Howl({
-        //     src: [blobURL],
-        //     format: ['mp3'],
-        //     ext: ['mp3']
-        //   });
-        // sound.play();
     }
 
     const onClickStop = (event) => {
@@ -88,13 +85,12 @@ const Audio = (props) => {
     }
 
     return(
-        <div>
-            <div name = "title"> {name} </div>
-            {/* place holder for now */}
-            <audio src=  {`${newUrl}`}controls="controls" type = "audio/mp3"/>
-            {/* <button onClick = {onClickStart}> Play </button>
-            <button onClick = {onClickStop}> Stop </button> */}
-        </div>
+        <tr>   
+            <td>
+                <audio src = {`${newUrl}`} controls = "constrols" type = "audio/mp3" />
+            </td>
+            <td> {name} </td>
+        </tr>
     )
 }
 

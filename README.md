@@ -3,7 +3,7 @@
 This repo is for Spring 2020 VIP SONYC team to design and prototype an application.
 
 # SET UP
-To set up for development, please get your own firebase key API. Your can checkout this [tutorial](https://www.tutorialspoint.com/firebase/index.htm)
+To set up for development, please get your own firebase key API. You can checkout this [tutorial](https://www.tutorialspoint.com/firebase/index.htm)
 
 # TO DO LIST
 - [ ] Figuring out to play audio data

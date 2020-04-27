@@ -1,9 +1,6 @@
-.signin-button img {
+.col.s12.m6.offset-m3.center-align img {
     width: 20px;
     margin-top: 7px;
     margin-right: 8px;
-}
 
-.signin-button button {
-    text-transform: none;
 }
