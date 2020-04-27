@@ -6,7 +6,7 @@
     width: 100px;
     height: 50px;
     color: #83878A;
-    font-size: 15pt;
+    font-size: 12pt;
     border: 3px #83878A;
     border-radius: 5pt;
     transition-duration: 0.3s;
@@ -25,34 +25,6 @@
 .topnav button.active {
     background-color: #4CAF50;
     color: white;
-}
-
-.topnav-right {
-      float : right
-}
-
-.loginButton{
-    display: flex;
-    flex-direction: column;
-    width: 70px;
-    height: 35px;
-    color: #83878A;
-    font-size: 15pt;
-    border: 3px dashed #83878A;
-    border-radius: 5pt;
-    transition-duration: 0.3s;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-}
-  
-.loginButton:hover{
-    display: flex;
-    transform: scale(0.98);
-    border-radius: 10px;
-    border: 2px solid white;
-    color: white;
-    transition-duration: 0.3s;
 }
 
   
