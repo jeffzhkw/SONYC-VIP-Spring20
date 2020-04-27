@@ -29,7 +29,7 @@ const Login = () => {
     return(
         <> 
             <div class= "col s12 m6 offset-m3 center-align">
-                <button onClick = {signInWithGoogle} class="oauth-container btn darken-4 white black-text">
+                <button onClick = {googleSignIn} class="oauth-container btn darken-4 white black-text">
                 <div class="left">
                 <img alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
                 </div>

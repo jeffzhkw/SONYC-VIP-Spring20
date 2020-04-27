@@ -3,9 +3,9 @@ import firebase from 'firebase'
 
 //add logic to read from file
 const config = {
-    apiKey: "AIzaSyBckDz5An7Rx4LcI_T2RL6eIw4xz4JdXyE",
-    authDomain: "sonyc-4fea8.firebaseapp.com",
-    databaseURL: "https://sonyc-4fea8.firebaseio.com"
+    apiKey: "_",
+    authDomain: "_",
+    databaseURL: "_"
 };
 
 firebase.initializeApp(config);
