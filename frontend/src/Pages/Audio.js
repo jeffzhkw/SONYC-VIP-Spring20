@@ -2,40 +2,37 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import ReactDOM from "react-dom";
 import MicRecorder from "mic-recorder-to-mp3";
-<<<<<<< HEAD:frontend/src/HomePage.js
 import WaveSurfer from "wavesurfer.js";
 import MicrophonePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.microphone.min.js';
-=======
-import { auth, db } from '../service/firebase';
->>>>>>> 61a3a0e308542e2a204296c2613cc7046da03aea:frontend/src/Pages/Audio.js
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 const Audio = () => {
   const [isRecording, setRecording] = useState(false);
   const [blobURL, setblobURL] = useState("");
   const [isBlocked, setBlocked] = useState(false);
-  const [user, setUser] = useState(auth().currentUser)
+  //const [user, setUser] = useState(auth().currentUser)
   const [Error, setError] = useState('')
   //may convert buffer to a file
   const [buffer, setBuffer] = useState([])
   const [name, setName] = useState('')
   const [id, setBlolbId] = useState("")
 
+
   const onSubmit = async(event) => {
-    event.preventDefault();
-    let uid = user.uid
-    try {
-      await db.ref('users/' + uid + "/" + id).push({
-          name : name,
-          timestamp: Date.now()
-      })
-      await db.ref('audios/' + id).push({
-        data : buffer
-      })
-    } catch(error) {
-      setError(error.message)
-      console.log(Error);
-    }
+    // event.preventDefault();
+    // let uid = user.uid
+    // try {
+    //   await db.ref('users/' + uid + "/" + id).push({
+    //       name : name,
+    //       timestamp: Date.now()
+    //   })
+    //   await db.ref('audios/' + id).push({
+    //     data : buffer
+    //   })
+    // } catch(error) {
+    //   setError(error.message)
+    //   console.log(Error);
+    // }
   }
   
   const addStartButton = () => {
@@ -96,8 +93,6 @@ const Audio = () => {
     );
   });
 
-<<<<<<< HEAD:frontend/src/HomePage.js
-  const history = useHistory();
 
 
   var wavesurfer = WaveSurfer.create({
@@ -121,8 +116,6 @@ const Audio = () => {
   
   
 
-=======
->>>>>>> 61a3a0e308542e2a204296c2613cc7046da03aea:frontend/src/Pages/Audio.js
     return (
         <div className="app">
             <div className="record-wrapper">
@@ -142,14 +135,11 @@ const Audio = () => {
                   Submit
               </button>
             </header>
-<<<<<<< HEAD:frontend/src/HomePage.js
 
             <div className="loud-indicator">
               <div id="waveform"></div>
             </div>
-        </Router>
-=======
->>>>>>> 61a3a0e308542e2a204296c2613cc7046da03aea:frontend/src/Pages/Audio.js
+        
         </div>
     );
   }

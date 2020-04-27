@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from 'firebase'
+import firebase from 'firebase';
 
 //add logic to read from file
 const config = {
