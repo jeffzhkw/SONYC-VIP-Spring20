@@ -11,9 +11,8 @@ const HomePage = () => {
                 <button onClick = {() => history.push('/audio')}>Audio</button>
                 <button onClick = {() => history.push('/dashboard')}>Dashboard</button>
                 <button onClick = {() => history.push('/about')}>About Us</button>
-                <div class = "topnav-right">
-                    <button onClick = {() => history.push('/login')} class = "loginButton"> Login </button>
-                </div>
+                <button onClick = {() => history.push('/login')}> Login </button>
+                <button onClick = {() => history.push('/signup')}> Get Started </button>
             </div>
             <img src = {sonyc} class = "image"></img>
         </>
