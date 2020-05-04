@@ -1,30 +1,132 @@
 /* Style the links inside the navigation bar */
-.topnav button {
-    float: left;
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700|Open+Sans:700|Roboto|Lato|Raleway:800|EB+Garamond|Kadwa|Lora&display=swap');
+.topnav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 8vh;
+    width: 100vw;
+    background-color: black;
+    position: fixed;
+}
+
+.topnav div{
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 10vmin;
+    margin-right: 10vmin;
+
+}
+
+.topnav div > div{
     display: flex;
     flex-direction: column;
-    width: 100px;
-    height: 50px;
-    color: #83878A;
-    font-size: 12pt;
-    border: 3px #83878A;
-    border-radius: 5pt;
-    transition-duration: 0.3s;
     justify-content: center;
     align-items: center;
-    margin: 5px;
+    
+    color: grey;
+    font-family: Arial;
+    font-size: 3vmin;
+    padding: 5px;
+    margin-left: 2vmin;
+    margin-right: 2vmin;
+    transition-duration: 0.5s;
 }
   
 /* Change the color of links on hover */
-.topnav button:hover {
-    background-color: #ddd;
-    color: black;
+.topnav div:hover {
+    color:white;
+    transition-duration: 0.7s;
 }
   
 /* Add a color to the active/current link */
-.topnav button.active {
-    background-color: #4CAF50;
+.topnav div.active {
     color: white;
 }
 
+.topnav div img{
+    height: 100%;
+    margin-left: 2vmin;
+    margin-right: 2vmin;
+}
+
+
+.heroImg{
+    margin-top: 8vh;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../img/01.JPG);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.overlay{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition-duration: 0.5s;
+  }
+  
+.overlay:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    transition-duration: 0.5s;
+  
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Lato;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition-duration: 0.9s;
+
+}
+
+.text:hover{
+    opacity: 1;
+    transition-duration: 0.9s;
+}
+
+.text h1, h2{
+    margin: 0px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.text h1{
+    font-size: 14vmin;
+    letter-spacing: 4vmin;
+    margin-top: 30vmin;
+}
+
+.text h2{
+    font-size: 3vmin;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.text > div{
+    border: 3px solid white;
+    border-right: 5px solid white;
+    border-bottom: 5px solid white;
+    padding: 10px;
+    margin: 30px;
+    font-size: 16pt;
+    color: white;
+    font-family: sans-serif;
+    transition-duration: 0.2s;
+}
+
+.text > div:hover{
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+    transition-duration: 0.2s;
+}
+text > div:active{
+    border: 1px solid white;
+}
   
